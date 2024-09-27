@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <p>Enter some names</p>
+<input type="text" id="input-names">
+<button type="submit" id="btn-submit">Submit</button>
+<ul id="names-list" style="display: none"></ul>
+
+<p>Press button to display a random name from the list.</p>
+<button type="selector" id="btn-selector">Select Random Name</button>
+<ul id="random-name"></ul>
+        <script>var name_list;
+
+function convertToNumber(value) {
+  // Convert a string value to a number if possible
+  let number_value = Number(value);
+  if (Number.isNaN(number_value)) {
+    return 0
+  } else {
+    return number_value
+  }
+}
+
+function randomInt(n) {
+  // Return a random number from in [0, n[
+  return Math.floor(Math.random()*n);
+}
+
+function randomMember(arr) {
+  // Return a random member of the array
+  return arr[randomInt(arr.length)]
+}
+
+// Describe this function...
+function get_random_name() {
+  if(--window.LoopTrap <= 0) throw "Infinite loop.";
+  let element_random_name = document.getElementById('random-name');
+  element_random_name.innerText = randomMember(name_list);
+  element_random_name.style.color = '#333333';
+}
+
+
+name_list = [];
+
+
+document.getElementById('btn-submit').addEventListener('click', (event) => {
+  let element_names_list = document.getElementById('names-list');
+  let new_li = document.createElement('li');
+  name_list.push(document.getElementById('input-names').value);
+
+  element_names_list.appendChild(new_li);
+
+});
+
+document.getElementById('btn-selector').addEventListener('click', (event) => {
+  get_random_name();
+
+});
+</script>
+    </body>
+</html>
